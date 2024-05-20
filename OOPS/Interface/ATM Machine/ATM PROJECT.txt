@@ -1,0 +1,277 @@
+ATM PROJECT
+
+
+
+
+
+
+
+interface AtmInterface {
+    public abstract void withdraw();
+
+    public abstract void getBalance();
+
+    public abstract void deposite();
+
+    public abstract void changePin();
+
+    public abstract void miniStatement();
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.util.*;
+
+public class AtmApp implements AtmInterface {
+
+    Scanner sc = new Scanner(System.in);
+
+    private double balance = 1000;
+
+    private int pin = 1000;
+
+    MiniStatement [] m = new MiniStatement[5];
+
+    int x=0;
+
+    public int getPin(){
+        return pin;
+    }
+
+    public void setPin( int a ){
+        this.pin = a;
+    }
+    
+    public void withdraw(){
+        System.out.println("Enter the amount: ");
+        int amount = sc.nextInt();
+        if(amount<=this.balance && amount%100==0 && amount<=25000 && amount>0){
+            balance -= amount;
+            System.out.println("Rupees " + amount + " has been debited successfully.");
+            System.out.println("Available balance is rupees " + this.balance);
+            MiniStatement m1 = new MiniStatement(amount, "Amount Debited", balance);
+            if(x<5){
+                m[x] = m1;
+                x++;
+            }else{
+                for(int i=0; i<4; i++){
+                    m[i] = m[i+1];
+                }
+                m[m.length-1] = m1;
+            }
+        }else{
+            System.out.println("Invalid amount entered");
+        }
+    }
+
+    public void getBalance(){
+        System.out.println("Your acc balance is " + this.balance + " rupees");
+    }
+
+    public void deposite(){
+        System.out.println("Enter the amount: ");
+        int amount = sc.nextInt();
+        if(amount>0 && amount<=40000){
+            this.balance += amount;
+            System.out.println("Rupees " + amount + " has been credited successfully.");
+            System.out.println("Available balance is rupees " + this.balance);
+            MiniStatement m1 = new MiniStatement(amount, "Amount Credited", this.balance);
+            if(x<5){
+                m[x] = m1;
+                x++;
+            }else{
+                for(int i=0; i<4; i++){
+                    m[i] = m[i+1];
+                }
+                m[m.length-1] = m1;
+            }
+        }else{
+            System.out.println("Invalid amount entered");
+        }
+    }
+
+    public void changePin(){
+        System.out.println("Enter your current PIN: ");
+        int cPIN = sc.nextInt();
+        if(cPIN==this.pin){
+            System.out.println("Enter the new pin: ");
+            int nPIN = sc.nextInt();
+            int temp = nPIN;
+            int count = 0;
+            while(temp>0){
+                count++;
+                temp /=10;
+            }
+            if(count==4){
+                this.pin = nPIN;
+                System.out.println("PIN changed successfully");
+            }else{
+                System.out.println("Alert: PIN should be of 4 digits");
+            }
+        }else{
+            System.out.println("Incorrect PIN entered");
+        }
+    }
+
+    public void miniStatement(){
+        System.out.println("=============================================");
+        int index = 1;
+        for(int i=m.length-1; i>=0; i--){
+            if(m[i]!=null){
+                System.out.print(index + ".   ");
+                m[i].details();
+                index++;
+            }
+        }
+        System.out.println("=============================================");
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public class MiniStatement {
+    private double amount;
+    private String message;
+    private double currBal;
+
+    // GETTER SETTER FOR AMOUNT
+    public double getAmount(){
+        return this.amount;
+    }
+
+    public void setAmount( double amount ){
+        this.amount = amount;
+    }
+
+    // GETTER SETTER FOR MESSAGE
+    public String getMessage(){
+        return this.message;
+    }
+
+    public void setMessage( String message ){
+        this.message = message;
+    }
+
+    // GETTER SETTER FOR CURRENT BALANCE
+    public double getCurrBal(){
+        return this.currBal;
+    }
+
+    public void setCurrBal( double amount ){
+        this.currBal += amount;
+    }
+
+    public MiniStatement ( double amount, String message, double currBal){
+        this.amount = amount;
+        this.message = message;
+        this.currBal = currBal;
+    }
+
+    public void details(){
+        System.out.println(amount + "     " + message + "     " + currBal);
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.util.Scanner;
+
+public class AtmDriver {
+    public static void main(String[] args) {
+        AtmApp a = new AtmApp();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter your PIN: ");
+        int pin = sc.nextInt();
+        boolean loop = true;
+        if(pin==a.getPin()){
+
+            while(loop){
+                System.out.println("Press 1 for withdraw");
+                System.out.println("Press 2 for Balance Enquiry");
+                System.out.println("Press 3 for Deposit");
+                System.out.println("Press 4 for Change PIN");
+                System.out.println("Press 5 for Mini Statement");
+                System.out.println("Press 6 for EXIT");
+                int choose = sc.nextInt();
+                switch (choose) {
+                    case 1: 
+                        a.withdraw();
+                        break;
+                    case 2:
+                        a.getBalance();
+                        break;
+                    case 3:
+                        a.deposite();
+                        break;
+                    case 4:
+                        a.changePin();
+                        break;
+                    case 5: 
+                        a.miniStatement();
+                        break;
+                    case 6:
+                        System.out.println("You have successfully logout.");
+                        loop = false;
+                        break;
+                    default:
+                        System.out.println("Invalid input entered");
+                        break;
+                }
+            }
+        }else{
+            System.out.println("Incorrect PIN entered");
+        }
+    }
+}
