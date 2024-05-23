@@ -1,0 +1,20 @@
+WAJP to take number from user & find middle digit of a number
+ number should have odd digit.
+
+2. WAJP to find whether the number is automorphic numbwer or not.
+if the square of a number ends with the number itself iss called as automorphic number
+
+3. WAJP to find whether the number is an amnstrong number or not.
+a positivwe number  the sum of m power of the digit
+
+4. WAJP to reverse a  number.
+
+5. WAJP to find whether the number is emirp
+emirp:- if the is a prime number and reverse of the a numnber is also a prime number 
+
+37, 23
+
+6. WAJP to take a number and find number of odd digits and even digit and find the sum of 
+power of the digits 
+a) for odd digits find the power of number of odd digit
+b) for even digit find the power of number of even digit

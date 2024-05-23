@@ -1,0 +1,16 @@
+Q1. WAJP to find whether the number is palindrome or not 
+
+
+Q2. WAJP to find whether the number is Strong number or not 
+   STRONG : Sum of factorial of a digit of a number is equal to the  number itself 
+
+Q3. WAJP to find wheterh the number is armstrong number or not  
+
+Q4. WAJP to find whether the number is automorphic number or not 
+
+Q5. WAJP to find whether the number is xylem or phloem.
+ XYLEM:-sum of digit of a number is equal to remaining digit of a number 
+
+Q6. WAJP to find the middle number from the passed number 
+
+Q7. WAJP to find first 25 prime numbers.
